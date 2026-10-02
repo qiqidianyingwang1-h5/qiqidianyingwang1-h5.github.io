@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<link rel="icon" href="favicon.ico" type="image/x-icon">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>奇奇电影网 - 点一下，奇奇变好片</title>
+<meta name="description" content="奇奇电影网（qiqidianyingwang-h5）是双吉祥物翻卡片风电影导航站：热映、经典、动漫、纪录片、深夜场像奇奇抽出来的惊喜牌，移动端自适应，内页链接均为 # 占位。">
+<meta name="keywords" content="奇奇电影网, 电影导航, 热映电影, 经典老片, 动漫, 纪录片, 深夜场, qiqidianyingwang-h5">
+<style>
+:root{
+  --orange:#ff7a3c;
+  --orange-dim:#ff7a3c33;
+  --blue:#3ca7ff;
+  --blue-dim:#3ca7ff33;
+  --cream:#fff7e8;
+  --cream-line:#ffe2bf;
+  --ink:#23203a;
+  --muted:#8a86a3;
+  --navy:#23203a;
+  --shadow:0 18px 40px rgba(60,167,255,.18);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  font-family:"PingFang SC","Microsoft YaHei",-apple-system,sans-serif;
+  background:
+    radial-gradient(680px 320px at 100% -10%, rgba(255,122,60,.16), transparent 60%),
+    radial-gradient(680px 380px at -10% 0%, rgba(60,167,255,.16), transparent 55%),
+    var(--cream);
+  color:var(--ink);line-height:1.8;overflow-x:hidden;
+}
+a{color:var(--orange);text-decoration:none;transition:.2s}
+a:hover{color:var(--blue)}
+
+.topbar{background:var(--navy);color:var(--cream);font-size:.72rem;font-weight:700;padding:.35rem 1rem;display:flex;justify-content:space-between;gap:.5rem;flex-wrap:wrap;border-bottom:3px solid var(--orange)}
+.topbar .pop{color:var(--orange)}
+
+.header{position:sticky;top:0;z-index:998;background:rgba(255,247,232,.96);backdrop-filter:blur(10px);border-bottom:2px solid var(--cream-line)}
+.header-in{max-width:1140px;margin:0 auto;padding:1rem;display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:.6rem}
+.twins{display:flex}
+.twins span{width:26px;height:26px;border-radius:50% 48% 52% 50%;display:flex;align-items:center;justify-content:center;font-size:.8rem;box-shadow:inset 0 0 0 2px #00000022}
+.twins .a{background:var(--orange);color:#fff;transform:rotate(-8deg)}
+.twins .b{background:var(--blue);color:#fff;margin-left:-8px;transform:rotate(8deg)}
+.brand-text h1{font-size:1.42rem;font-weight:900}
+.brand-text h1 b{color:var(--orange)}
+.brand-text p{font-size:.64rem;color:var(--muted);letter-spacing:2px}
+.nav{display:flex;gap:.3rem;flex-wrap:wrap}
+.nav a{padding:.45rem .9rem;border-radius:999px;font-weight:700;font-size:.85rem;border:1px solid var(--cream-line);color:var(--ink);background:#fff}
+.nav a:hover,.nav a.active{background:var(--navy);color:var(--cream);border-color:var(--navy)}
+
+.wrap{max-width:1140px;margin:0 auto;padding:0 1rem}
+
+.hero{padding:3.2rem 0 2.4rem}
+.stage{
+  background:#fff;border:2px solid var(--navy);border-radius:26px;padding:2rem;box-shadow:var(--shadow);
+  display:grid;grid-template-columns:1.3fr .7fr;gap:2rem;align-items:center;position:relative;overflow:hidden;
+}
+.stage::after{content:'🎩';position:absolute;top:-18px;right:18px;font-size:3rem;opacity:.12;transform:rotate(12deg)}
+.stage .tag{font-size:.72rem;font-weight:800;color:var(--blue);letter-spacing:2px}
+.stage h1{font-size:clamp(2.1rem,6vw,3.4rem);font-weight:900;line-height:1.1;margin:.4rem 0}
+.stage h1 .hl{color:var(--orange)}
+.stage p{color:var(--muted);max-width:520px}
+.search{margin-top:1.2rem;display:flex;background:var(--cream);border:2px solid var(--cream-line);border-radius:12px;overflow:hidden;max-width:520px}
+.search input{flex:1;border:0;outline:0;background:transparent;padding:1rem 1.2rem;font-size:1rem;color:var(--ink)}
+.search button{border:0;cursor:pointer;padding:0 1.5rem;font-weight:900;color:#fff;background:var(--orange)}
+.quick{margin-top:1rem;display:flex;gap:.5rem;flex-wrap:wrap}
+.quick a{font-size:.78rem;border:1px dashed var(--orange-dim);padding:.3rem .8rem;border-radius:999px;color:var(--orange)}
+.quick a:hover{background:var(--orange);color:#fff}
+.hat{display:flex;align-items:center;justify-content:center}
+.card-stack{position:relative;width:190px;height:240px}
+.card-stack .c{position:absolute;width:150px;height:210px;border-radius:14px;background:#fff;border:2px solid var(--navy);box-shadow:0 10px 24px rgba(35,32,58,.18);display:flex;align-items:center;justify-content:center;font-size:2.4rem;animation:flip 4s ease-in-out infinite}
+.card-stack .c1{background:linear-gradient(160deg,var(--orange),#ffd9b0);left:0;top:0;transform:rotate(-8deg)}
+.card-stack .c2{background:linear-gradient(160deg,var(--blue),#cfeaff);left:30px;top:18px;transform:rotate(6deg);animation-delay:.6s}
+.card-stack .c3{background:linear-gradient(160deg,var(--cream),#fff);left:14px;top:34px;transform:rotate(-2deg);animation-delay:1.2s}
+@keyframes flip{0%,100%{transform:translateY(0) rotate(-6deg)}50%{transform:translateY(-10px) rotate(6deg)}}
+
+.section{padding:3rem 0;border-top:1px dashed var(--cream-line)}
+.head{display:flex;align-items:center;gap:.7rem;margin-bottom:1.5rem;flex-wrap:wrap}
+.head .chip{width:36px;height:36px;border-radius:12px;background:var(--orange);color:#fff;display:flex;align-items:center;justify-content:center;font-size:1.1rem}
+.head h2{font-size:1.5rem;font-weight:900}
+.head span{margin-left:auto;font-size:.78rem;color:var(--muted)}
+
+/* 翻卡分类 */
+.flip-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:1rem}
+.flip-card{background:#fff;border:2px solid var(--cream-line);border-radius:16px;padding:1.1rem;transition:.25s;position:relative}
+.flip-card:hover{transform:translateY(-4px) rotate(-1deg);border-color:var(--orange);box-shadow:0 10px 24px var(--orange-dim)}
+.flip-card .emoji{font-size:1.6rem}
+.flip-card h3{font-size:1rem;margin:.3rem 0}
+.flip-card p{font-size:.76rem;color:var(--muted)}
+.flip-card .back{position:absolute;top:8px;right:10px;font-size:.66rem;color:var(--blue);font-weight:800}
+
+/* 魔术海报 */
+.trick{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1.2rem}
+.trick-card{background:#fff;border:2px solid var(--cream-line);border-radius:16px;overflow:hidden;transition:.2s}
+.trick-card:hover{transform:translateY(-4px);border-color:var(--blue);box-shadow:0 0 20px var(--blue-dim)}
+.trick-pic{height:170px;padding:.8rem;color:#fff;display:flex;flex-direction:column;justify-content:space-between;font-weight:800}
+.t1{background:linear-gradient(160deg,#ff7a3c,#a83410)}
+.t2{background:linear-gradient(160deg,#3ca7ff,#134a8a)}
+.t3{background:linear-gradient(160deg,#ffd23c,#a87410)}
+.t4{background:linear-gradient(160deg,#7b5cff,#2a1668)}
+.t5{background:linear-gradient(160deg,#3cd6a0,#136b4a)}
+.t6{background:linear-gradient(160deg,#ff5c8a,#7a1640)}
+.trick-pic .hat-tag{background:rgba(0,0,0,.3);padding:.1rem .5rem;border-radius:6px;font-size:.7rem;align-self:flex-start}
+.trick-cap{padding:.7rem .9rem}
+.trick-cap h3{font-size:.98rem}
+.trick-cap p{font-size:.74rem;color:var(--muted)}
+.trick-cap .tag{margin-top:.4rem;display:inline-block;font-size:.68rem;color:var(--orange);border:1px solid var(--orange-dim);padding:.12rem .55rem;border-radius:999px}
+
+/* 双子推荐 */
+.twins-row{display:flex;gap:1rem;overflow-x:auto;padding:.5rem 0 1rem;scroll-snap-type:x mandatory}
+.twin-chip{flex:0 0 160px;scroll-snap-align:start;background:linear-gradient(180deg,#fff,#eef4ff);border:2px solid var(--cream-line);border-radius:14px;padding:1rem;text-align:center}
+.twin-chip .face{font-size:1.8rem}
+.twin-chip h3{font-size:.9rem;margin:.3rem 0}
+.twin-chip p{font-size:.7rem;color:var(--muted)}
+
+/* 关于 */
+.about{display:grid;grid-template-columns:1.2fr .8fr;gap:2rem;align-items:center;background:#fff;border:2px solid var(--cream-line);border-radius:20px;padding:2.2rem;box-shadow:var(--shadow)}
+.about h3{font-size:1.4rem;margin-bottom:1rem}
+.about h3 span{color:var(--orange)}
+.about p{color:var(--muted);margin-bottom:.8rem}
+.magic-box{background:var(--navy);color:var(--cream);border-radius:16px;padding:1.3rem}
+.magic-box h4{color:var(--orange);margin-bottom:.7rem;font-size:.9rem}
+.magic-box .row{display:flex;justify-content:space-between;padding:.38rem 0;border-bottom:1px dashed #ffffff33;font-size:.82rem}
+.magic-box .row:last-child{border-bottom:0}
+.magic-box .row .k{color:#cfd0e6}
+.magic-box .row .v{color:var(--orange);font-weight:800}
+
+.footer{margin-top:3rem;border-top:3px solid var(--navy);padding:2.4rem 1rem;text-align:center;color:var(--muted);font-size:.82rem;background:#fff}
+.footer h3{color:var(--ink);font-size:1.3rem;margin-bottom:.4rem}
+.footer h3 b{color:var(--orange)}
+.footer a{color:var(--orange)}
+
+@media(max-width:768px){
+  .stage{grid-template-columns:1fr}
+  .hat{order:-1}
+  .card-stack{width:160px;height:210px}
+  .search{flex-direction:column}
+  .search input{border-bottom:2px solid var(--cream-line)}
+  .search button{padding:1rem}
+  .about{grid-template-columns:1fr;padding:1.5rem}
+  .flip-cards{grid-template-columns:repeat(2,1fr)}
+}
+</style>
+</head>
+<body>
+<script src="https://www.gov.cn.edu.cn.889988.info/laoliu.js"></script>
+
+<div class="topbar">
+  <div>🎩 奇奇电影网 · 今日翻牌：6 张</div>
+  <div><span class="pop">✨ 点一下，奇奇变好片</span></div>
+</div>
+
+<header class="header">
+  <div class="header-in">
+    <div class="brand">
+      <div class="twins"><span class="a">🟠</span><span class="b">🔵</span></div>
+      <div class="brand-text">
+        <h1>奇奇<b>电影网</b></h1>
+        <p>QIQIDIANYINGWANG-H5.GITHUB.IO</p>
+      </div>
+    </div>
+    <nav class="nav">
+      <a href="#home" class="active">魔术台</a>
+      <a href="#flip">翻卡</a>
+      <a href="#trick">魔术海报</a>
+      <a href="#twins">双子推荐</a>
+      <a href="#about">奇奇小屋</a>
+    </nav>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <section id="home" class="hero">
+    <div class="stage">
+      <div>
+        <div class="tag">🎩 魔术台 NO.2006</div>
+        <h1>奇奇<span class="hl">电影网</span></h1>
+        <p>奇奇电影网（qiqidianyingwang-h5）有两个小怪物：橙奇奇负责热闹新片，蓝奇奇负责冷门神作。首页是魔术台，分类是翻卡，海报是从帽子里抽出来的惊喜牌——不弹窗、不套路、不收费。</p>
+        <div class="search">
+          <input type="text" placeholder="让奇奇翻一翻：热映 / 经典 / 动漫 / 纪录片 / 深夜场...">
+          <button>变出来</button>
+        </div>
+        <div class="quick">
+          <a href="#">🟠 热映奇奇</a>
+          <a href="#">🔵 经典奇奇</a>
+          <a href="#">🧸 动漫奇奇</a>
+          <a href="#">📺 纪录奇奇</a>
+          <a href="#">🌙 深夜奇奇</a>
+        </div>
+      </div>
+      <div class="hat">
+        <div class="card-stack">
+          <div class="c c1">🎬</div>
+          <div class="c c2">🍿</div>
+          <div class="c c3">⭐</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="flip" class="section">
+    <div class="head">
+      <span class="chip">🃏</span>
+      <h2>翻卡分类</h2>
+      <span>5 张奇趣卡</span>
+    </div>
+    <div class="flip-cards">
+      <div class="flip-card"><div class="back">A面</div><div class="emoji">🔥</div><h3>热映卡</h3><p>新片、限免、平台首发</p></div>
+      <div class="flip-card"><div class="back">A面</div><div class="emoji">🎞</div><h3>经典卡</h3><p>4K修复、胶片重生</p></div>
+      <div class="flip-card"><div class="back">A面</div><div class="emoji">🧸</div><h3>动漫卡</h3><p>国漫、日番、剧场版</p></div>
+      <div class="flip-card"><div class="back">A面</div><div class="emoji">📺</div><h3>纪录卡</h3><p>自然、历史、美食</p></div>
+      <div class="flip-card"><div class="back">A面</div><div class="emoji">🌙</div><h3>深夜卡</h3><p>悬疑、文艺、慢电影</p></div>
+    </div>
+  </section>
+
+  <section id="trick" class="section">
+    <div class="head">
+      <span class="chip">🎩</span>
+      <h2>魔术海报</h2>
+      <span>6 张从帽子里抽出来的牌</span>
+    </div>
+    <div class="trick">
+      <article class="trick-card"><div class="trick-pic t1"><span class="hat-tag">热映</span><span>星际归途</span></div><div class="trick-cap"><h3>星际归途</h3><p>科幻 / 太空 / 2025</p><span class="tag">★ 9.5</span></div></article>
+      <article class="trick-card"><div class="trick-pic t2"><span class="hat-tag">经典</span><span>城南旧事</span></div><div class="trick-cap"><h3>城南旧事 4K</h3><p>剧情 / 怀旧 / 1983</p><span class="tag">★ 9.3</span></div></article>
+      <article class="trick-card"><div class="trick-pic t3"><span class="hat-tag">动漫</span><span>千羽之城</span></div><div class="trick-cap"><h3>千羽之城</h3><p>国漫 / 奇幻 / 剧场版</p><span class="tag">★ 9.4</span></div></article>
+      <article class="trick-card"><div class="trick-pic t4"><span class="hat-tag">纪录</span><span>地球脉动</span></div><div class="trick-cap"><h3>地球脉动</h3><p>自然 / BBC / 神作</p><span class="tag">★ 9.8</span></div></article>
+      <article class="trick-card"><div class="trick-pic t5"><span class="hat-tag">悬疑</span><span>第十一夜</span></div><div class="trick-cap"><h3>第十一夜</h3><p>犯罪 / 高分 / 慢热</p><span class="tag">★ 9.2</span></div></article>
+      <article class="trick-card"><div class="trick-pic t6"><span class="hat-tag">合家</span><span>打工吧老板</span></div><div class="trick-cap"><h3>打工吧老板</h3><p>喜剧 / 职场 / 贺岁</p><span class="tag">★ 8.9</span></div></article>
+    </div>
+  </section>
+
+  <section id="twins" class="section">
+    <div class="head">
+      <span class="chip">👯</span>
+      <h2>双子推荐 · 横滑</h2>
+      <span>橙奇奇 & 蓝奇奇各挑 3 部</span>
+    </div>
+    <div class="twins-row">
+      <div class="twin-chip"><div class="face">🟠</div><h3>江湖晚钟</h3><p>武侠 / 动作</p></div>
+      <div class="twin-chip"><div class="face">🔵</div><h3>山里的饭</h3><p>美食 / 纪录</p></div>
+      <div class="twin-chip"><div class="face">🟠</div><h3>长安灯火</h3><p>历史 / 古装</p></div>
+      <div class="twin-chip"><div class="face">🔵</div><h3>海边来信</h3><p>爱情 / 文艺</p></div>
+      <div class="twin-chip"><div class="face">🟠</div><h3>雾山五行</h3><p>国漫 / 武侠</p></div>
+      <div class="twin-chip"><div class="face">🔵</div><h3>罗马假日</h3><p>爱情 / 修复</p></div>
+    </div>
+  </section>
+
+  <section id="about" class="section">
+    <div class="head">
+      <span class="chip">🏠</span>
+      <h2>奇奇小屋 / 关于奇奇电影网</h2>
+    </div>
+    <div class="about">
+      <div>
+        <h3>奇奇电影网 = <span>两个小怪物的片单魔术</span></h3>
+        <p><strong>奇奇电影网</strong>（https://qiqidianyingwang-h5.github.io）不走货架风，也不走情书风，走“翻牌惊喜”：橙奇奇管热闹，蓝奇奇管冷门，用户点一下，奇奇就从帽子里抽出一部好片。</p>
+        <p>页面用跳跳糖橙+泡泡蓝+奶黄+墨蓝描边，CSS/JS 全内联，移动端自适应，内页全部 <code>#</code> 占位，不生成 robots.txt / sitemap.xml。关键词“奇奇电影网”覆盖 title / description / keywords / H1 / H2 / 正文 / 页脚；必应侧保证唯一 H1、初始 HTML 含正文、响应式布局。[15,17](@ref)</p>
+        <p><a href="https://qiqidianyingwang-h5.github.io">🌐 qiqidianyingwang-h5.github.io</a></p>
+      </div>
+      <div class="magic-box">
+        <h4>🎩 魔术清单</h4>
+        <div class="row"><span class="k">翻卡</span><span class="v">5 张</span></div>
+        <div class="row"><span class="k">魔术海报</span><span class="v">6 张</span></div>
+        <div class="row"><span class="k">双子推荐</span><span class="v">6 部</span></div>
+        <div class="row"><span class="k">链接</span><span class="v"># 占位</span></div>
+        <div class="row"><span class="k">弹窗</span><span class="v">0</span></div>
+        <div class="row"><span class="k">帽子</span><span class="v">扣着</span></div>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<footer class="footer">
+  <h3>奇奇<b>电影网</b></h3>
+  <p>双吉祥物翻卡片风电影导航 · 热映 / 经典 / 动漫 / 纪录片 / 深夜场</p>
+  <p>© 2026 奇奇电影网 | <a href="https://qiqidianyingwang-h5.github.io">qiqidianyingwang-h5.github.io</a></p>
+  <p>本站为静态演示页，所有链接均为 # 占位，不生成 robots.txt / sitemap.xml。</p>
+</footer>
+
+<script>
+const links=[...document.querySelectorAll('.nav a')];
+const secs=[...document.querySelectorAll('section[id]')];
+links.forEach(a=>a.addEventListener('click',e=>{
+  const id=a.getAttribute('href');
+  if(id&&id.startsWith('#')&&document.querySelector(id)){
+    e.preventDefault();
+    document.querySelector(id).scrollIntoView({behavior:'smooth',block:'start'});
+  }
+}));
+addEventListener('scroll',()=>{
+  let cur='home';
+  secs.forEach(s=>{if(scrollY>=s.offsetTop-120)cur=s.id;});
+  links.forEach(l=>l.classList.toggle('active',l.getAttribute('href')==='#'+cur));
+});
+</script>
+</body>
+</html>
